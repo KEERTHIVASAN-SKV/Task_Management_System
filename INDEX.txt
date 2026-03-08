@@ -1,0 +1,127 @@
+================================================================================
+                    TASK MANAGEMENT SYSTEM
+                        FILE INDEX
+================================================================================
+
+🚀 START HERE (in this order):
+-------------------------------
+1. README_FIRST.txt           ← Read this first!
+2. verify-setup.bat           ← Run this to check setup
+3. run-backend-with-logs.bat  ← Run this to start backend
+4. test-connection.html       ← Open this to test
+5. frontend/index.html        ← Open this to use app
+
+⚠️  IF INDEX.HTML SHOWS ERROR:
+   → Read: HOW_TO_FIX.txt
+   → Or just press: Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)
+
+
+📚 DOCUMENTATION:
+-----------------
+HOW_TO_FIX.txt                ← Fix cache issue (visual guide)
+SOLUTION_SUMMARY.txt          ← Quick solution summary
+FIX_CACHE_ISSUE.md            ← Detailed cache fix guide
+START_HERE.md                 ← Complete setup guide
+VISUAL_GUIDE.txt              ← Step-by-step with visuals
+QUICK_START.txt               ← Quick reference
+TROUBLESHOOTING.md            ← Fix common problems
+SETUP_GUIDE.md                ← Detailed setup instructions
+README.md                     ← Full project documentation
+
+
+🔧 UTILITY SCRIPTS:
+-------------------
+verify-setup.bat              ← Check if everything is ready
+run-backend-with-logs.bat     ← Start backend (recommended)
+start-backend.bat             ← Alternative backend starter
+start-frontend.bat            ← Start frontend server
+check-backend-status.bat      ← Check if backend is running
+test-mysql-connection.bat     ← Test MySQL connection
+
+
+🌐 WEB PAGES:
+-------------
+test-connection.html          ← Test backend connection
+frontend/index.html           ← Main application
+frontend/debug.html           ← Diagnostic & cache checker
+
+
+📁 PROJECT FILES:
+-----------------
+backend/
+  ├── src/main/java/com/taskmanagement/
+  │   ├── TaskManagementApplication.java
+  │   ├── model/Task.java
+  │   ├── repository/TaskRepository.java
+  │   ├── service/TaskService.java
+  │   ├── controller/TaskController.java
+  │   └── exception/GlobalExceptionHandler.java
+  ├── src/main/resources/
+  │   └── application.properties    ← Database config
+  └── pom.xml
+
+frontend/
+  ├── index.html                    ← Main UI
+  ├── script.js                     ← Frontend logic
+  └── styles.css                    ← Styling
+
+console-version/
+  └── TaskManagementConsole.java    ← Console version
+
+
+🔑 KEY CONFIGURATION:
+---------------------
+Backend Port: 8081
+Database: task_management_db
+MySQL User: root
+MySQL Password: skvasan
+
+
+⚡ QUICK COMMANDS:
+------------------
+Start Backend:
+  cd backend
+  mvn spring-boot:run
+
+Test Backend:
+  curl http://localhost:8081/api/tasks
+
+Create Database:
+  mysql -u root -pskvasan -e "CREATE DATABASE task_management_db;"
+
+
+❓ HAVING ISSUES?
+-----------------
+1. Read: TROUBLESHOOTING.md
+2. Read: VISUAL_GUIDE.txt
+3. Run: check-backend-status.bat
+4. Check backend terminal for errors
+
+
+✅ SUCCESS CHECKLIST:
+---------------------
+□ Ran verify-setup.bat - all passed
+□ Started backend - saw "Started TaskManagementApplication"
+□ Tested connection - saw success message
+□ Opened frontend - page loads
+□ Added task - task appears
+□ Everything works!
+
+
+================================================================================
+                        MOST COMMON ISSUE
+================================================================================
+
+PROBLEM: "Failed to fetch" error in browser
+
+SOLUTION:
+1. Backend is not running
+2. Run: run-backend-with-logs.bat
+3. Wait for "Started TaskManagementApplication"
+4. Refresh browser
+
+================================================================================
+
+Need help? Start with README_FIRST.txt
+
+================================================================================

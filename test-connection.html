@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 { color: #667eea; }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover { background: #5568d3; }
+        .success { color: #00b894; font-weight: bold; }
+        .error { color: #d63031; font-weight: bold; }
+        .info { color: #0984e3; }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .status.success { background: #d4edda; border: 1px solid #c3e6cb; }
+        .status.error { background: #f8d7da; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <div class="test-box">
+        <h1>🔧 Backend Connection Test</h1>
+        <p>Use this page to verify your backend is running correctly.</p>
+        
+        <button onclick="testConnection()">Test Connection</button>
+        <button onclick="testCreateTask()">Test Create Task</button>
+        <button onclick="testGetTasks()">Test Get Tasks</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <div class="test-box">
+        <h2>Checklist</h2>
+        <div id="checklist">
+            <p>Click "Test Connection" to start...</p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8081/api/tasks';
+        const resultDiv = document.getElementById('result');
+        const checklistDiv = document.getElementById('checklist');
+
+        async function testConnection() {
+            resultDiv.innerHTML = '<p class="info">Testing connection...</p>';
+            
+            try {
+                const response = await fetch(API_URL);
+                
+                if (response.ok) {
+                    const tasks = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="status success">
+                            <p class="success">✅ SUCCESS! Backend is running!</p>
+                            <p>Found ${tasks.length} task(s) in database</p>
+                            <pre>${JSON.stringify(tasks, null, 2)}</pre>
+                        </div>
+                    `;
+                    
+                    checklistDiv.innerHTML = `
+                        <p class="success">✅ Backend is running on port 8081</p>
+                        <p class="success">✅ API endpoint is accessible</p>
+                        <p class="success">✅ Database connection is working</p>
+                        <p class="success">✅ CORS is configured correctly</p>
+                        <hr>
+                        <p><strong>Your application is ready to use!</strong></p>
+                        <p>Open <code>frontend/index.html</code> to start using the app.</p>
+                    `;
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="status error">
+                        <p class="error">❌ CONNECTION FAILED</p>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+                
+                checklistDiv.innerHTML = `
+                    <p class="error">❌ Cannot connect to backend</p>
+                    <hr>
+                    <h3>Fix Steps:</h3>
+                    <ol>
+                        <li>Open terminal in project folder</li>
+                        <li>Run: <code>cd backend</code></li>
+                        <li>Run: <code>mvn spring-boot:run</code></li>
+                        <li>Wait for "Started TaskManagementApplication"</li>
+                        <li>Click "Test Connection" again</li>
+                    </ol>
+                    <h3>Common Issues:</h3>
+                    <ul>
+                        <li>MySQL not running - start MySQL service</li>
+                        <li>Database doesn't exist - run: <code>CREATE DATABASE task_management_db;</code></li>
+                        <li>Wrong MySQL credentials - check application.properties</li>
+                    </ul>
+                `;
+            }
+        }
+
+        async function testCreateTask() {
+            resultDiv.innerHTML = '<p class="info">Creating test task...</p>';
+            
+            const testTask = {
+                taskTitle: "Test Task " + new Date().toLocaleTimeString(),
+                taskDescription: "This is a test task created by the connection tester",
+                priority: "Medium",
+                dueDate: "2024-12-31"
+            };
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testTask)
+                });
+                
+                if (response.ok) {
+                    const createdTask = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="status success">
+                            <p class="success">✅ Task created successfully!</p>
+                            <pre>${JSON.stringify(createdTask, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    const error = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${error}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="status error">
+                        <p class="error">❌ Failed to create task</p>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function testGetTasks() {
+            resultDiv.innerHTML = '<p class="info">Fetching all tasks...</p>';
+            
+            try {
+                const response = await fetch(API_URL);
+                
+                if (response.ok) {
+                    const tasks = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="status success">
+                            <p class="success">✅ Retrieved ${tasks.length} task(s)</p>
+                            <pre>${JSON.stringify(tasks, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="status error">
+                        <p class="error">❌ Failed to fetch tasks</p>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

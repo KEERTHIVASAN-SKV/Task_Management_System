@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - Task Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 { color: #667eea; }
+        .success { color: #00b894; }
+        .error { color: #d63031; }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Information</h1>
+    
+    <div class="box">
+        <h2>Configuration</h2>
+        <p><strong>API URL:</strong> <code id="apiUrl">Loading...</code></p>
+        <p><strong>Script Version:</strong> <code id="scriptVersion">Checking...</code></p>
+    </div>
+
+    <div class="box">
+        <h2>Connection Test</h2>
+        <button onclick="testConnection()">Test Backend Connection</button>
+        <div id="connectionResult"></div>
+    </div>
+
+    <div class="box">
+        <h2>Browser Cache</h2>
+        <p>If you're seeing port 8080 instead of 8081, your browser is using cached files.</p>
+        <button onclick="clearCacheAndReload()">Clear Cache & Reload</button>
+        <p style="margin-top: 10px; color: #666; font-size: 0.9rem;">
+            Or press: <code>Ctrl + Shift + R</code> (Windows) or <code>Cmd + Shift + R</code> (Mac)
+        </p>
+    </div>
+
+    <div class="box">
+        <h2>Quick Actions</h2>
+        <button onclick="window.location.href='index.html'">Open Main App</button>
+        <button onclick="window.location.href='../test-connection.html'">Open Test Page</button>
+    </div>
+
+    <script>
+        // Show API URL from script.js
+        const API_URL = 'http://localhost:8081/api/tasks';
+        document.getElementById('apiUrl').textContent = API_URL;
+        
+        // Check if correct version
+        const correctPort = API_URL.includes(':8081');
+        const versionEl = document.getElementById('scriptVersion');
+        if (correctPort) {
+            versionEl.textContent = '✓ Correct (Port 8081)';
+            versionEl.className = 'success';
+        } else {
+            versionEl.textContent = '✗ Wrong (Port 8080) - Clear cache!';
+            versionEl.className = 'error';
+        }
+
+        async function testConnection() {
+            const resultDiv = document.getElementById('connectionResult');
+            resultDiv.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                const response = await fetch(API_URL);
+                if (response.ok) {
+                    const tasks = await response.json();
+                    resultDiv.innerHTML = `
+                        <p class="success">✓ Connection successful!</p>
+                        <p>Found ${tasks.length} task(s)</p>
+                        <pre>${JSON.stringify(tasks, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">✗ Connection failed: ${error.message}</p>
+                    <p>Make sure backend is running on port 8081</p>
+                `;
+            }
+        }
+
+        function clearCacheAndReload() {
+            // Clear cache and reload
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => caches.delete(name));
+                });
+            }
+            // Force reload without cache
+            window.location.reload(true);
+        }
+
+        // Auto-test on load
+        window.addEventListener('load', () => {
+            setTimeout(testConnection, 500);
+        });
+    </script>
+</body>
+</html>
