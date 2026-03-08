@@ -1,0 +1,144 @@
+================================================================================
+                    TASK MANAGEMENT SYSTEM
+                        START HERE
+================================================================================
+
+WELCOME! This guide will get you up and running in 5 minutes.
+
+================================================================================
+                        QUICK START (3 STEPS)
+================================================================================
+
+STEP 1: Setup Database
+----------------------
+1. Start MySQL service
+2. Open MySQL Workbench or command line
+3. Run: CREATE DATABASE task_management_db;
+4. Update credentials in: backend/src/main/resources/application.properties
+   - spring.datasource.username=your_username
+   - spring.datasource.password=your_password
+
+STEP 2: Start Backend
+---------------------
+Windows: Double-click run-backend-with-logs.bat
+Others:  cd backend && mvn spring-boot:run
+
+Wait for: "Started TaskManagementApplication"
+Keep this window open!
+
+STEP 3: Open Application
+-------------------------
+1. Test: Open test-connection.html → Click "Test Connection"
+2. Use:  Open frontend/index.html → Click "Add New Task"
+
+Done! You're ready to use the application.
+
+================================================================================
+                        DOCUMENTATION FILES
+================================================================================
+
+Essential Documentation (Read in order):
+----------------------------------------
+1. README.md              - Project overview and features
+2. QUICK_START.md         - Detailed setup instructions
+3. TROUBLESHOOTING.md     - Solutions for common issues
+4. PROJECT_GUIDE.md       - Complete development guide
+
+Utility Tools:
+--------------
+- test-connection.html    - Test backend connection
+- frontend/debug.html     - Diagnostic tool
+- run-backend-with-logs.bat - Start backend (Windows)
+- verify-setup.bat        - Check prerequisites (Windows)
+
+================================================================================
+                        COMMON ISSUES
+================================================================================
+
+Issue: "Failed to fetch" error
+Fix: Backend not running → Start with run-backend-with-logs.bat
+
+Issue: "Access denied for user"
+Fix: Wrong credentials → Update application.properties
+
+Issue: "Unknown database"
+Fix: Database missing → Run: CREATE DATABASE task_management_db;
+
+Issue: Browser cache problem
+Fix: Press Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)
+
+For detailed solutions, read: TROUBLESHOOTING.md
+
+================================================================================
+                        CONFIGURATION
+================================================================================
+
+Backend Port: 8081
+Database: task_management_db
+API URL: http://localhost:8081/api/tasks
+
+To change port:
+1. Edit application.properties: server.port=8082
+2. Edit frontend/script.js: API_URL = 'http://localhost:8082/api/tasks'
+3. Edit test-connection.html: API_URL = 'http://localhost:8082/api/tasks'
+
+================================================================================
+                        PROJECT STRUCTURE
+================================================================================
+
+backend/
+  ├── src/main/java/com/taskmanagement/
+  │   ├── TaskManagementApplication.java
+  │   ├── model/Task.java
+  │   ├── repository/TaskRepository.java
+  │   ├── service/TaskService.java
+  │   ├── controller/TaskController.java
+  │   └── exception/GlobalExceptionHandler.java
+  └── src/main/resources/application.properties
+
+frontend/
+  ├── index.html          - Main application
+  ├── script.js           - Frontend logic
+  ├── styles.css          - Styling
+  └── debug.html          - Diagnostic tool
+
+console-version/
+  └── TaskManagementConsole.java - Standalone console app
+
+================================================================================
+                        VERIFICATION
+================================================================================
+
+Check if backend is running:
+1. Open browser
+2. Go to: http://localhost:8081/api/tasks
+3. Should show: [] or list of tasks
+
+Check if frontend works:
+1. Open: frontend/index.html
+2. Press F12 (open console)
+3. Should see: "Task Management System - API URL: http://localhost:8081/api/tasks"
+
+================================================================================
+                        NEXT STEPS
+================================================================================
+
+1. Read README.md for full project overview
+2. Read PROJECT_GUIDE.md for development details
+3. Try the console version: cd console-version && javac TaskManagementConsole.java && java TaskManagementConsole
+4. Explore the API endpoints in PROJECT_GUIDE.md
+
+================================================================================
+                        NEED HELP?
+================================================================================
+
+1. Read TROUBLESHOOTING.md for detailed solutions
+2. Use frontend/debug.html to diagnose issues
+3. Check backend terminal for error messages
+4. Check browser console (F12) for JavaScript errors
+
+================================================================================
+
+Ready? Start with Step 1 above!
+
+================================================================================

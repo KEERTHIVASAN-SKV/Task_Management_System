@@ -1,38 +1,18 @@
 @echo off
+echo ========================================
 echo Testing MySQL Connection...
+echo ========================================
 echo.
-
-mysql -u root -pskvasan -e "SHOW DATABASES;" 2>nul
-
-if errorlevel 1 (
-    echo ERROR: Cannot connect to MySQL
-    echo.
-    echo Possible issues:
-    echo 1. MySQL service is not running
-    echo 2. Password is incorrect
-    echo 3. MySQL is not installed
-    echo.
-    echo To fix:
-    echo - Check if MySQL service is running in Services
-    echo - Verify password in application.properties
-    pause
-    exit /b 1
-) else (
-    echo SUCCESS: MySQL connection works!
-    echo.
-    echo Checking for task_management_db...
-    mysql -u root -pskvasan -e "USE task_management_db; SHOW TABLES;" 2>nul
-    
-    if errorlevel 1 (
-        echo.
-        echo Database task_management_db does not exist!
-        echo Creating it now...
-        mysql -u root -pskvasan -e "CREATE DATABASE task_management_db;"
-        echo Database created successfully!
-    ) else (
-        echo Database exists and is accessible!
-    )
-)
-
+echo This script requires MySQL command line tools.
+echo.
+echo To test MySQL connection manually:
+echo 1. Open MySQL Workbench
+echo 2. Or run: mysql -u your_username -p
+echo 3. Enter your password when prompted
+echo 4. Run: SHOW DATABASES;
+echo 5. Run: CREATE DATABASE IF NOT EXISTS task_management_db;
+echo.
+echo Make sure to update credentials in:
+echo backend/src/main/resources/application.properties
 echo.
 pause

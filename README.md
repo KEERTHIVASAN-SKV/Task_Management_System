@@ -15,7 +15,7 @@ A full-stack web application for managing tasks and deadlines with CRUD operatio
 ## Tech Stack
 
 **Backend:**
-- Java 21
+- Java 17+
 - Spring Boot 3.2.0
 - Spring Data JPA
 - MySQL Database
@@ -29,87 +29,73 @@ A full-stack web application for managing tasks and deadlines with CRUD operatio
 
 ## Prerequisites
 
-- Java 17 , 21 or higher
+- Java 17 or higher
 - Maven 3.6+
 - MySQL 8.0+
 - Modern web browser
 
-## Database Setup
+## Quick Start
 
-1. Install MySQL and start the service
-2. Create database:
+### 1. Setup MySQL Database
+
+Start MySQL service and create database:
 ```sql
 CREATE DATABASE task_management_db;
 ```
 
-3. Update credentials in `backend/src/main/resources/application.properties`:
+Update credentials in `backend/src/main/resources/application.properties`:
 ```properties
 spring.datasource.username=your_username
 spring.datasource.password=your_password
 ```
 
-## Running the Application
+### 2. Start Backend
 
-### Quick Start (Windows)
+**Option A - Using batch file (Windows):**
+```bash
+# Double-click: run-backend-with-logs.bat
+```
 
-1. **Setup MySQL Database:**
-   - Start MySQL service
-   - Run `check-mysql.sql` in MySQL Workbench to create database
-
-2. **Start Backend:**
-   - Double-click `start-backend.bat`
-   - Wait for "Started TaskManagementApplication" message
-
-3. **Test Connection (Optional but Recommended):**
-   - Open `test-connection.html` in browser
-   - Click "Test Connection" button
-   - Should show "✅ SUCCESS! Backend is running!"
-
-4. **Start Frontend:**
-   - Double-click `start-frontend.bat`
-   - Or open `frontend/index.html` directly in browser
-
-### Manual Start
-
-#### Backend (Spring Boot)
-
+**Option B - Using terminal:**
 ```bash
 cd backend
 mvn spring-boot:run
 ```
 
-Server runs on: http://localhost:8080
+Wait for: `"Started TaskManagementApplication"`
 
-#### Frontend
+Backend runs on: http://localhost:8081
 
-```bash
-cd frontend
-python -m http.server 3000
+### 3. Test Connection (Optional)
+
+Open `test-connection.html` in browser and click "Test Connection"
+
+### 4. Open Frontend
+
+Open `frontend/index.html` in your browser
+
+## Project Structure
+
 ```
-
-Then visit: http://localhost:3000
-
-Or simply open `frontend/index.html` in your browser.
-
-#### Console Version
-
-```bash
-cd console-version
-javac TaskManagementConsole.java
-java TaskManagementConsole
+task-management-system/
+├── backend/
+│   ├── src/main/java/com/taskmanagement/
+│   │   ├── TaskManagementApplication.java
+│   │   ├── model/Task.java
+│   │   ├── repository/TaskRepository.java
+│   │   ├── service/TaskService.java
+│   │   ├── controller/TaskController.java
+│   │   └── exception/GlobalExceptionHandler.java
+│   ├── src/main/resources/
+│   │   └── application.properties
+│   └── pom.xml
+├── frontend/
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+└── console-version/
+    └── TaskManagementConsole.java
 ```
-
-### Troubleshooting
-
-**"Failed to fetch" error in browser:**
-- Backend is not running - start it first using `start-backend.bat`
-- MySQL is not running - start MySQL service
-- Database doesn't exist - run `check-mysql.sql`
-
-**Backend won't start:**
-- Check MySQL credentials in `application.properties`
-- Verify MySQL is running on port 3306
-- Check if port 8080 is available
 
 ## API Endpoints
 
@@ -124,26 +110,6 @@ java TaskManagementConsole
 | GET | /api/tasks/search?title={title} | Search by title |
 | PATCH | /api/tasks/{id}/complete | Mark as completed |
 
-## Project Structure
-
-```
-task-management-system/
-├── backend/
-│   ├── src/main/java/com/taskmanagement/
-│   │   ├── model/Task.java
-│   │   ├── repository/TaskRepository.java
-│   │   ├── service/TaskService.java
-│   │   ├── controller/TaskController.java
-│   │   └── exception/GlobalExceptionHandler.java
-│   └── pom.xml
-├── frontend/
-│   ├── index.html
-│   ├── styles.css
-│   └── script.js
-└── console-version/
-    └── TaskManagementConsole.java
-```
-
 ## Usage
 
 1. Click "Add New Task" to create a task
@@ -154,12 +120,38 @@ task-management-system/
 6. Edit or delete tasks using action buttons
 7. Mark tasks as completed with the Complete button
 
-## Validation
+## Troubleshooting
 
-- Task Title: Required
-- Priority: Required (Low/Medium/High)
-- Due Date: Required
-- Status: Auto-set to "Pending" for new tasks
+**"Failed to fetch" error:**
+- Backend is not running → Start it with `run-backend-with-logs.bat`
+- MySQL is not running → Start MySQL service
+- Database doesn't exist → Run `CREATE DATABASE task_management_db;`
+
+**Backend won't start:**
+- Check MySQL credentials in `application.properties`
+- Verify MySQL is running on port 3306
+- Check if port 8081 is available
+
+**Browser cache issues:**
+- Press `Ctrl + Shift + R` (Windows) or `Cmd + Shift + R` (Mac)
+- Or open in Incognito/Private mode
+
+For detailed troubleshooting, see `TROUBLESHOOTING.md`
+
+## Console Version
+
+Run the standalone console application:
+```bash
+cd console-version
+javac TaskManagementConsole.java
+java TaskManagementConsole
+```
+
+## Configuration
+
+- Backend Port: 8081 (configurable in `application.properties`)
+- Database: task_management_db
+- API Base URL: http://localhost:8081/api/tasks
 
 ## License
 

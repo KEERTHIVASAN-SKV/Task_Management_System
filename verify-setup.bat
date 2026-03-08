@@ -39,22 +39,11 @@ if errorlevel 1 (
 echo.
 
 echo [4/4] Checking Database...
-mysql -u root -pskvasan -e "USE task_management_db;" 2>nul
-if errorlevel 1 (
-    echo    WARNING: Database 'task_management_db' not found
-    echo    Creating database...
-    mysql -u root -pskvasan -e "CREATE DATABASE IF NOT EXISTS task_management_db;" 2>nul
-    if errorlevel 1 (
-        echo    ERROR: Cannot create database. Check MySQL credentials.
-        set DB_OK=0
-    ) else (
-        echo    OK: Database created successfully
-        set DB_OK=1
-    )
-) else (
-    echo    OK: Database exists
-    set DB_OK=1
-)
+echo    Please check manually:
+echo    1. Open MySQL Workbench or command line
+echo    2. Run: CREATE DATABASE IF NOT EXISTS task_management_db;
+echo    3. Verify credentials in backend/src/main/resources/application.properties
+set DB_OK=1
 echo.
 
 echo ========================================

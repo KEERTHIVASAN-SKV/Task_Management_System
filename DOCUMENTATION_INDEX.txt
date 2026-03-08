@@ -1,0 +1,175 @@
+================================================================================
+                    DOCUMENTATION INDEX
+                    All Project Documentation
+================================================================================
+
+ESSENTIAL DOCUMENTATION (5 FILES):
+===================================
+
+1. START_HERE.txt
+   - Quick start guide (3 steps)
+   - Common issues and fixes
+   - Configuration overview
+   - First file to read!
+
+2. README.md
+   - Project overview
+   - Features and tech stack
+   - Basic setup instructions
+   - API endpoints summary
+
+3. QUICK_START.md
+   - Detailed setup guide
+   - Step-by-step instructions
+   - Common issues with solutions
+   - Utility scripts reference
+
+4. TROUBLESHOOTING.md
+   - Complete problem-solving guide
+   - Backend issues
+   - Frontend issues
+   - Database issues
+   - Testing and verification
+
+5. PROJECT_GUIDE.md
+   - Complete development guide
+   - Architecture details
+   - API documentation
+   - Development best practices
+   - Deployment instructions
+
+UTILITY TOOLS:
+==============
+
+Web Pages:
+----------
+- test-connection.html    - Test if backend is running
+- frontend/index.html     - Main application
+- frontend/debug.html     - Diagnostic and cache checker
+
+Windows Batch Scripts:
+----------------------
+- run-backend-with-logs.bat    - Start backend (recommended)
+- start-backend.bat            - Alternative backend starter
+- start-frontend.bat           - Start frontend server
+- verify-setup.bat             - Check prerequisites
+- check-backend-status.bat     - Check if backend is running
+- test-mysql-connection.bat    - MySQL connection info
+
+SQL Scripts:
+------------
+- check-mysql.sql         - Database setup script
+
+READING ORDER:
+==============
+
+For First-Time Setup:
+---------------------
+1. START_HERE.txt         (5 min read)
+2. QUICK_START.md         (10 min read)
+3. Try running the application
+4. If issues: TROUBLESHOOTING.md
+
+For Development:
+----------------
+1. README.md              (Project overview)
+2. PROJECT_GUIDE.md       (Architecture & API)
+3. Start coding!
+
+For Troubleshooting:
+--------------------
+1. TROUBLESHOOTING.md     (Complete solutions)
+2. Use frontend/debug.html
+3. Check backend logs
+
+QUICK REFERENCE:
+================
+
+Start Backend:
+  Windows: run-backend-with-logs.bat
+  Others:  cd backend && mvn spring-boot:run
+
+Open Frontend:
+  Open: frontend/index.html
+
+Test Connection:
+  Open: test-connection.html
+
+Check Status:
+  Browser: http://localhost:8081/api/tasks
+
+Configuration File:
+  backend/src/main/resources/application.properties
+
+COMMON TASKS:
+=============
+
+Setup Database:
+  CREATE DATABASE task_management_db;
+  Update credentials in application.properties
+
+Change Port:
+  1. Edit application.properties: server.port=8082
+  2. Edit frontend/script.js: API_URL
+  3. Edit test-connection.html: API_URL
+
+Clear Browser Cache:
+  Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)
+
+Check Backend Logs:
+  Look at terminal where backend is running
+
+Check Frontend Errors:
+  Press F12 → Console tab
+
+FILE LOCATIONS:
+===============
+
+Backend Code:
+  backend/src/main/java/com/taskmanagement/
+
+Frontend Code:
+  frontend/
+
+Configuration:
+  backend/src/main/resources/application.properties
+
+Console Version:
+  console-version/TaskManagementConsole.java
+
+Documentation:
+  Root directory (*.md, *.txt files)
+
+SUPPORT:
+========
+
+If you need help:
+1. Read TROUBLESHOOTING.md
+2. Use frontend/debug.html
+3. Check backend terminal for errors
+4. Check browser console (F12)
+5. Verify MySQL is running
+6. Verify database exists
+
+KEY INFORMATION:
+================
+
+Backend Port: 8081
+Database: task_management_db
+API URL: http://localhost:8081/api/tasks
+
+Prerequisites:
+- Java 17+
+- Maven 3.6+
+- MySQL 8.0+
+
+Configuration:
+- Update MySQL credentials in application.properties
+- No password stored in documentation files
+- Use your own MySQL username/password
+
+================================================================================
+
+Start with: START_HERE.txt
+
+================================================================================
