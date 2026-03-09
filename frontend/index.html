@@ -3,78 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task & Deadline Management System</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>TaskFlow - Smart Task Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .container {
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>📋 Task & Deadline Management System</h1>
-        </header>
-
-        <div class="controls">
-            <button id="addTaskBtn" class="btn btn-primary">+ Add New Task</button>
-            <div class="filter-search">
-                <select id="statusFilter" class="filter-select">
-                    <option value="">All Status</option>
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Completed">Completed</option>
-                </select>
-                <input type="text" id="searchInput" placeholder="Search by title..." class="search-input">
-            </div>
-        </div>
-
-        <div id="taskModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2 id="modalTitle">Add New Task</h2>
-                <form id="taskForm">
-                    <input type="hidden" id="taskId">
-                    <div class="form-group">
-                        <label for="taskTitle">Task Title *</label>
-                        <input type="text" id="taskTitle" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="taskDescription">Task Description</label>
-                        <textarea id="taskDescription" rows="3"></textarea>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="priority">Priority *</label>
-                            <select id="priority" required>
-                                <option value="">Select Priority</option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="dueDate">Due Date *</label>
-                            <input type="date" id="dueDate" required>
-                        </div>
-                    </div>
-                    <div class="form-group" id="statusGroup" style="display: none;">
-                        <label for="status">Status</label>
-                        <select id="status">
-                            <option value="Pending">Pending</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Save Task</button>
-                        <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div id="tasksContainer" class="tasks-container">
-            <div id="loadingMessage">Loading tasks...</div>
-        </div>
+        <div class="logo">✓</div>
+        <h1>TaskFlow</h1>
+        <p>Organize your work, amplify your productivity</p>
+        <a href="login.html" class="btn">Get Started</a>
     </div>
-
-    <script src="script.js?v=2"></script>
+    
+    <script>
+        // Auto-redirect if already logged in
+        const user = localStorage.getItem('user');
+        if (user) {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
 </body>
 </html>

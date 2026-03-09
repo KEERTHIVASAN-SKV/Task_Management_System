@@ -1,16 +1,18 @@
-# Task & Deadline Management System
+# Task & Deadline Management System - TaskFlow
 
-A full-stack web application for managing tasks and deadlines with CRUD operations, built with Java Spring Boot, MySQL, and vanilla JavaScript.
+A modern full-stack web application for managing tasks and deadlines with user authentication, built with Java Spring Boot, MySQL, and vanilla JavaScript.
 
 ## Features
 
+- 🔐 User Authentication (Register/Login)
 - ✅ Create, Read, Update, Delete tasks
 - 🔍 Search tasks by title
-- 🎯 Filter tasks by status (Pending, In Progress, Completed)
+- 🎯 Filter tasks by status and priority
 - 📊 Priority levels (Low, Medium, High)
 - ✓ Mark tasks as completed
-- 📱 Responsive design
+- 📱 Modern, responsive design with animations
 - 💾 Persistent MySQL database storage
+- 📈 Dashboard with task statistics
 
 ## Tech Stack
 
@@ -23,16 +25,9 @@ A full-stack web application for managing tasks and deadlines with CRUD operatio
 
 **Frontend:**
 - HTML5
-- CSS3 (Flexbox/Grid)
+- CSS3 (Modern animations & gradients)
 - Vanilla JavaScript (ES6+)
 - Fetch API
-
-## Prerequisites
-
-- Java 17 or higher
-- Maven 3.6+
-- MySQL 8.0+
-- Modern web browser
 
 ## Quick Start
 
@@ -51,12 +46,12 @@ spring.datasource.password=your_password
 
 ### 2. Start Backend
 
-**Option A - Using batch file (Windows):**
+**Windows:**
 ```bash
 # Double-click: run-backend-with-logs.bat
 ```
 
-**Option B - Using terminal:**
+**Terminal:**
 ```bash
 cd backend
 mvn spring-boot:run
@@ -66,13 +61,29 @@ Wait for: `"Started TaskManagementApplication"`
 
 Backend runs on: http://localhost:8081
 
-### 3. Test Connection (Optional)
+### 3. Open Application
 
-Open `test-connection.html` in browser and click "Test Connection"
+Open `frontend/index.html` in your browser or:
+```bash
+cd frontend
+python -m http.server 3000
+```
 
-### 4. Open Frontend
+Then visit: http://localhost:3000
 
-Open `frontend/index.html` in your browser
+### 4. Register & Login
+
+1. Click "Get Started"
+2. Create an account on the registration page
+3. Login with your credentials
+4. Start managing your tasks!
+
+## Application Flow
+
+1. **Landing Page** (`index.html`) - Welcome page
+2. **Register** (`register.html`) - Create new account
+3. **Login** (`login.html`) - Sign in to your account
+4. **Dashboard** (`dashboard.html`) - Main task management interface
 
 ## Project Structure
 
@@ -81,28 +92,50 @@ task-management-system/
 ├── backend/
 │   ├── src/main/java/com/taskmanagement/
 │   │   ├── TaskManagementApplication.java
-│   │   ├── model/Task.java
-│   │   ├── repository/TaskRepository.java
-│   │   ├── service/TaskService.java
-│   │   ├── controller/TaskController.java
-│   │   └── exception/GlobalExceptionHandler.java
+│   │   ├── model/
+│   │   │   ├── Task.java
+│   │   │   └── User.java
+│   │   ├── repository/
+│   │   │   ├── TaskRepository.java
+│   │   │   └── UserRepository.java
+│   │   ├── service/
+│   │   │   ├── TaskService.java
+│   │   │   └── UserService.java
+│   │   ├── controller/
+│   │   │   ├── TaskController.java
+│   │   │   └── AuthController.java
+│   │   └── exception/
+│   │       └── GlobalExceptionHandler.java
 │   ├── src/main/resources/
 │   │   └── application.properties
 │   └── pom.xml
 ├── frontend/
-│   ├── index.html
-│   ├── styles.css
-│   └── script.js
+│   ├── index.html          (Landing page)
+│   ├── login.html          (Login page)
+│   ├── register.html       (Registration page)
+│   ├── dashboard.html      (Main app)
+│   ├── auth.css            (Auth pages styling)
+│   ├── auth.js             (Auth logic)
+│   ├── dashboard.css       (Dashboard styling)
+│   └── dashboard.js        (Dashboard logic)
 └── console-version/
     └── TaskManagementConsole.java
 ```
 
 ## API Endpoints
 
+### Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | /api/auth/register | Register new user |
+| POST | /api/auth/login | Login user |
+| GET | /api/auth/user/{id} | Get user details |
+
+### Tasks
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | /api/tasks | Create new task |
-| GET | /api/tasks | Get all tasks |
+| GET | /api/tasks?userId={id} | Get user's tasks |
 | GET | /api/tasks/{id} | Get task by ID |
 | PUT | /api/tasks/{id} | Update task |
 | DELETE | /api/tasks/{id} | Delete task |
@@ -110,15 +143,33 @@ task-management-system/
 | GET | /api/tasks/search?title={title} | Search by title |
 | PATCH | /api/tasks/{id}/complete | Mark as completed |
 
-## Usage
+## Features Showcase
 
-1. Click "Add New Task" to create a task
-2. Fill in required fields (Title, Priority, Due Date)
-3. View all tasks in card layout
-4. Use filters to view tasks by status
-5. Search tasks using the search bar
-6. Edit or delete tasks using action buttons
-7. Mark tasks as completed with the Complete button
+### Modern UI
+- Gradient backgrounds with animations
+- Smooth transitions and hover effects
+- Responsive design for all devices
+- Professional color scheme
+- Card-based layout
+
+### Dashboard
+- Real-time task statistics
+- Filter by status and priority
+- Search functionality
+- Quick actions (Complete, Edit, Delete)
+- User profile section
+
+### Authentication
+- Secure user registration
+- Login with validation
+- Session management with localStorage
+- Auto-redirect for authenticated users
+
+## Configuration
+
+- Backend Port: 8081 (configurable in `application.properties`)
+- Database: task_management_db
+- API Base URL: http://localhost:8081/api
 
 ## Troubleshooting
 
@@ -127,31 +178,16 @@ task-management-system/
 - MySQL is not running → Start MySQL service
 - Database doesn't exist → Run `CREATE DATABASE task_management_db;`
 
-**Backend won't start:**
-- Check MySQL credentials in `application.properties`
-- Verify MySQL is running on port 3306
-- Check if port 8081 is available
+**Can't login:**
+- Make sure you've registered first
+- Check backend logs for errors
+- Verify database connection
 
 **Browser cache issues:**
 - Press `Ctrl + Shift + R` (Windows) or `Cmd + Shift + R` (Mac)
 - Or open in Incognito/Private mode
 
 For detailed troubleshooting, see `TROUBLESHOOTING.md`
-
-## Console Version
-
-Run the standalone console application:
-```bash
-cd console-version
-javac TaskManagementConsole.java
-java TaskManagementConsole
-```
-
-## Configuration
-
-- Backend Port: 8081 (configurable in `application.properties`)
-- Database: task_management_db
-- API Base URL: http://localhost:8081/api/tasks
 
 ## License
 

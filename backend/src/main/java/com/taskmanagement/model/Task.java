@@ -35,6 +35,9 @@ public class Task {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDateTime;
     
+    @Column(nullable = false)
+    private Long userId;
+    
     @PrePersist
     protected void onCreate() {
         createdDateTime = LocalDateTime.now();
@@ -105,5 +108,13 @@ public class Task {
     
     public void setCreatedDateTime(LocalDateTime createdDateTime) {
         this.createdDateTime = createdDateTime;
+    }
+    
+    public Long getUserId() {
+        return userId;
+    }
+    
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

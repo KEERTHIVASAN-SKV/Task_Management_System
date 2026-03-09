@@ -24,8 +24,8 @@ public class TaskController {
     }
     
     @GetMapping
-    public ResponseEntity<List<Task>> getAllTasks() {
-        List<Task> tasks = taskService.getAllTasks();
+    public ResponseEntity<List<Task>> getAllTasks(@RequestParam(required = false) Long userId) {
+        List<Task> tasks = userId != null ? taskService.getTasksByUserId(userId) : taskService.getAllTasks();
         return ResponseEntity.ok(tasks);
     }
     
